@@ -41,6 +41,38 @@ class BinaryTree:
                 node.right = Node(val)
 
 
+    def find(self, val):
+        if self.root is not None:
+            return self._find(val, self.root)  
+
+
+    def _find(self, val, node):
+        if val == node.val:
+            return node
+        elif val < node.val and node.left is not None:
+            return self._find(val, node.left)
+        elif val > node.val and node.right is not None:
+            return self._find(val, node.right)        
+
+
+    def findCustomValue(self):
+        while True:
+            inputVal = input("Input value to search in tree.: ")
+            try:
+                val = int(inputVal)
+                self.searchInTree(val)
+                break
+            except:
+                print("Add an integer.")
+
+
+    def searchInTree(self,val):
+        if self.find(val):
+            print(f"The binary tree CONTAINS the value {val}.")
+        else:
+            print(f"The binary tree DOES NOT CONTAIN the value {val}.")
+
+
     def fillTree(self):
         useCustom = input("Want to add custom values?(y/n): ")
         if useCustom == "y":
@@ -76,3 +108,4 @@ if __name__ == "__main__":
     tree = BinaryTree()
     tree.fillTree()
     tree.printTree()
+    tree.findCustomValue()
