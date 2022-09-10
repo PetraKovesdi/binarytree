@@ -1,3 +1,5 @@
+DEFAULT_VALUES=[5,4,0,8,2,7]
+
 class Node:
     
     def __init__(self, val):
@@ -38,9 +40,30 @@ class BinaryTree:
             else:
                 node.right = Node(val)
 
+
+    def fillTree(self):
+        useCustom = input("Want to add custom values?(y/n): ")
+        if useCustom == "y":
+            while True:
+                userInput = input("Add value or quit with q: ")
+                if userInput == "q":
+                    break
+                else:
+                    try:
+                        value = int(userInput)
+                        self.add(value)
+                    except:
+                        print("Add integer numbers as values.")
+        else:
+            print("Adding default values.")
+            for value in DEFAULT_VALUES:
+                self.add(value)
+
+
     def printTree(self):
         if self.root is not None:
             self._printTree(self.root)
+
 
     def _printTree(self, node):
         if node is not None:
@@ -48,12 +71,8 @@ class BinaryTree:
             print(node)
             self._printTree(node.right)
 
+
 if __name__ == "__main__":
     tree = BinaryTree()
-    tree.add(5)
-    tree.add(4)
-    tree.add(0)
-    tree.add(8)
-    tree.add(2)
-    tree.add(7)
+    tree.fillTree()
     tree.printTree()
