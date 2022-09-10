@@ -60,13 +60,13 @@ class BinaryTree:
             inputVal = input("Input value to search in tree.: ")
             try:
                 val = int(inputVal)
-                self.searchInTree(val)
+                self.searchAndPrintResult(val)
                 break
             except:
                 print("Add an integer.")
 
 
-    def searchInTree(self,val):
+    def searchAndPrintResult(self,val):
         if self.find(val):
             print(f"The binary tree CONTAINS the value {val}.")
         else:
