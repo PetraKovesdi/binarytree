@@ -83,7 +83,10 @@ class BinaryTree:
                 else:
                     try:
                         value = int(userInput)
-                        self.add(value)
+                        if not self.find(value):
+                            self.add(value)
+                        else:
+                            print(f"Value {value} is already in binary tree.")     
                     except:
                         print("Add integer numbers as values.")
         else:
