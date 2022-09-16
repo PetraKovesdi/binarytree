@@ -55,6 +55,50 @@ class BinaryTree:
             return self._find(val, node.right)        
 
 
+    def remove(self, val):
+        if val == self.root.val:
+            print("removedNode is root")
+        else:
+            removedNode = self.find(val)
+            print(f"to be removed {removedNode}")
+            print(f"left node of removed is {removedNode.left}")
+            print(f"right node of removed is {removedNode.right}")
+            #In case node to be removed is a leaf
+            if removedNode.left is None and removedNode.right is None:
+                self.eraseLeafNode(removedNode)
+      
+
+
+    def eraseLeafNode(self,node):
+        removedNodeParent = self.findParent(node.val)
+        if removedNodeParent is not None:
+            if removedNodeParent.val > node.val:
+                removedNodeParent.left = None
+            elif removedNodeParent.val < node.val:
+                removedNodeParent.right = None
+        node = None  
+
+
+    def findParent(self, val):
+        if val == self.root.val:
+            return None
+        else:
+           return self._findParent(val, self.root)
+
+
+    def _findParent(self, val, node):
+        if val < node.val and node.left is not None:
+            if node.left.val == val:
+                return node
+            else:
+                return self._findParent(val, node.left)    
+        elif val > node.val and node.right is not None:
+            if node.right.val == val:
+                return node
+            else:
+                return self._findParent(val, node.right)  
+
+
     def findCustomValue(self):
         while True:
             inputVal = input("Input value to search in tree.: ")
@@ -112,3 +156,5 @@ if __name__ == "__main__":
     tree.fillTree()
     tree.printTree()
     tree.findCustomValue()
+    tree.remove(7)
+    tree.printTree()
