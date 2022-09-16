@@ -56,16 +56,16 @@ class BinaryTree:
 
 
     def remove(self, val):
-        if val == self.root.val:
-            print("removedNode is root")
-        else:
-            removedNode = self.find(val)
-            print(f"to be removed {removedNode}")
-            print(f"left node of removed is {removedNode.left}")
-            print(f"right node of removed is {removedNode.right}")
-            #In case node to be removed is a leaf
-            if removedNode.left is None and removedNode.right is None:
-                self.eraseLeafNode(removedNode)
+        removedNode = self.find(val)
+        print(f"to be removed {removedNode}")
+        print(f"left node of removed is {removedNode.left}")
+        print(f"right node of removed is {removedNode.right}")
+        #In case node to be removed is a leaf
+        if removedNode.left is None and removedNode.right is None:
+            self.eraseLeafNode(removedNode)
+        #In case node to be removed has only one child node    
+        elif removedNode.left is None or removedNode.right is None:
+            self.eraseBranchNodeWithOneChild(removedNode)
       
 
 
@@ -77,6 +77,17 @@ class BinaryTree:
             elif removedNodeParent.val < node.val:
                 removedNodeParent.right = None
         node = None  
+
+
+    def eraseBranchNodeWithOneChild(self,node):
+        removedNodeParent = self.findParent(node.val)
+        childNode = node.left if node.left is not None else node.right
+        if removedNodeParent is not None:
+            if removedNodeParent.val > node.val:
+                removedNodeParent.left = childNode
+            elif removedNodeParent.val < node.val:
+                removedNodeParent.right = childNode
+        node = None 
 
 
     def findParent(self, val):
@@ -156,5 +167,5 @@ if __name__ == "__main__":
     tree.fillTree()
     tree.printTree()
     tree.findCustomValue()
-    tree.remove(7)
+    tree.remove(8)
     tree.printTree()
